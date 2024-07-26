@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #dc3545;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #dee2e6;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .actions a {
+            margin: 0 5px;
+            color: #dc3545;
+        }
+
+        .actions a:hover {
+            color: #c82333;
+        }
+    </style>
+</head>
+<body>
+<p>
+    <a href="/shop">Shop</a>
+</p>
+<h1>Your Cart</h1>
+<form th:action="@{/shop}" th:object="${cart}" method="post">
+    <h3>Total Items: <span th:text="${cart.countItemQuantity()}"></span></h3>
+    <h3>Total Products: <span th:text="${cart.countProductQuantity()}"></span></h3>
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="product : ${cart.products}">
+            <td th:text="${product.key.name}"></td>
+            <td>
+                <a th:href="@{/add/__${product.key.id}__(action='show')}">+</a>
+                <span th:text="${product.value}"></span>
+            </td>
+            <td th:text="${product.key.price}"></td>
+            <td class="actions">
+                <a th:href="@{/remove/__${product.key.id}__(action='show')}">Remove</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Total</td>
+            <td></td>
+            <td th:text="${cart.countTotalPayment()}"></td>
+            <td></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 20px;
+    }
+
+    p a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    p a:hover {
+      text-decoration: underline;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid #dee2e6;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #343a40;
+      color: #ffffff;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    a {
+      color: #28a745;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #218838;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<p>
+  <a href="/shopping-cart">Your Cart</a>
+</p>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Add To Cart</th>
+  </tr>
+  <th:block th:each="product : ${products}">
+    <tr>
+      <td th:text="${product.name}"></td>
+      <td th:text="${product.price}"></td>
+      <td>
+        <a th:href="@{/add/__${product.id}__(action='list')}">Add To Cart</a>
+      </td>
+    </tr>
+  </th:block>
+</table>
+</body>
+</html>
